@@ -1,0 +1,62 @@
+﻿@page
+@model MegaDeskWebGroup.Pages.Quotes.CreateModel
+
+        @{
+        ViewData["Title"] = "Create";
+        }
+        
+        <h1>Create</h1>
+        
+    <h4>Quote</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Quote.CustomerName" class="control-label"></label>
+                <input asp-for="Quote.CustomerName" class="form-control" />
+                <span asp-validation-for="Quote.CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.Width" class="control-label"></label>
+                <input asp-for="Quote.Width" class="form-control" />
+                <span asp-validation-for="Quote.Width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.Depth" class="control-label"></label>
+                <input asp-for="Quote.Depth" class="form-control" />
+                <span asp-validation-for="Quote.Depth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.DrawerCount" class="control-label"></label>
+                <input asp-for="Quote.DrawerCount" class="form-control" />
+                <span asp-validation-for="Quote.DrawerCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.SurfaceMaterial" class="control-label"></label>
+                <select asp-for="Quote.SurfaceMaterial" class="form-control"
+                        asp-items="Html.GetEnumSelectList<MegaDeskWebGroup.Models.SurfaceMaterial>()">
+                    <option value="">- Select a Surface Material -</option>
+                </select>
+                <span asp-validation-for="Quote.SurfaceMaterial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.RushDays" class="control-label"></label>
+                <input asp-for="Quote.RushDays" class="form-control" />
+                <span asp-validation-for="Quote.RushDays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
