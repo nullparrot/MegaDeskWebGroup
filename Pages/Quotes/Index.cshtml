@@ -5,81 +5,63 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Quotes</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
-                    @Html.DisplayNameFor(model => model.Quote[0].CustomerName)
-                    @(string.IsNullOrEmpty(Model.CurrentSort) ? "▲" : Model.CurrentSort == "name_desc" ? "▼" : "")
-
-                </a>
-            </th>
-            <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort">
-                    @Html.DisplayNameFor(model => model.Quote[0].QuoteDate)
-                    @(Model.CurrentSort == "Date" ? "▲" : Model.CurrentSort == "date_desc" ? "▼" : "")
-                </a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quote[0].TotalCost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quote[0].Width)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quote[0].Depth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quote[0].DrawerCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quote[0].SurfaceMaterial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quote[0].RushDays)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Quote) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuoteDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalCost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Width)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Depth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DrawerCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SurfaceMaterial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RushDays)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="mb-3">
+    <a asp-page="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Create New Quote</a>
+</div>
+<div class="card">
+    <div class="card-header">
+        All Quotes
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                                @Html.DisplayNameFor(model => model.Quote[0].CustomerName)
+                                @(string.IsNullOrEmpty(Model.CurrentSort) ? "▲" : Model.CurrentSort == "name_desc" ? "▼" : "")
+                            </a>
+                        </th>
+                        <th>
+                            <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort">
+                                @Html.DisplayNameFor(model => model.Quote[0].QuoteDate)
+                                @(Model.CurrentSort == "Date" ? "▲" : Model.CurrentSort == "date_desc" ? "▼" : "")
+                            </a>
+                        </th>
+                        <th>@Html.DisplayNameFor(model => model.Quote[0].TotalCost)</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Quote)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.CustomerName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.QuoteDate, "{0:MM/dd/yyyy}")</td>
+                            <td>@Html.DisplayFor(modelItem => item.TotalCost, "{0:C}")</td>
+                            <td>
+                                @((int)item.RushDays > 0 ? item.QuoteDate.AddDays((int)item.RushDays).ToString("MM/dd/yyyy") : "N/A")
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton-@item.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-@item.Id">
+                                        <li><a class="dropdown-item" asp-page="./Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i> Edit</a></li>
+                                        <li><a class="dropdown-item" asp-page="./Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details</a></li>
+                                        <li><a class="dropdown-item text-danger" asp-page="./Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
