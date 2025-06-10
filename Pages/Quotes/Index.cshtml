@@ -14,10 +14,17 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].CustomerName)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.Quote[0].CustomerName)
+                    @(string.IsNullOrEmpty(Model.CurrentSort) ? "▲" : Model.CurrentSort == "name_desc" ? "▼" : "")
+
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].QuoteDate)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort">
+                    @Html.DisplayNameFor(model => model.Quote[0].QuoteDate)
+                    @(Model.CurrentSort == "Date" ? "▲" : Model.CurrentSort == "date_desc" ? "▼" : "")
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quote[0].TotalCost)
