@@ -1,0 +1,19 @@
+Surface Material Attribution
+
+oak-surface:
+Oak Texture by William Warby
+https://www.flickr.com/photos/wwarby/ 
+
+laminate-surface:
+Light Wood Grain by Parée
+https://www.flickr.com/photos/pareeerica/ 
+
+veneer-surface:
+https://itoldya420.getarchive.net/media/wood-texture-wood-texture-backgrounds-textures-13e067?action=download&size=1024 
+
+pine-surface:
+Kurtkaiser, CC0, via Wikimedia Commons
+https://commons.wikimedia.org/wiki/File:Pine_Wood_lumber,_table,_floor,_desk.jpg
+
+rosewood-surface:
+https://pxhere.com/en/photo/1371793 
