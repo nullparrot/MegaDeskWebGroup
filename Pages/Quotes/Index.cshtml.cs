@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MegaDeskWebGroup.Data;
 using MegaDeskWebGroup.Models;
+using Microsoft.Data.SqlClient;
 
 namespace MegaDeskWebGroup.Pages.Quotes
 {
@@ -21,9 +22,38 @@ namespace MegaDeskWebGroup.Pages.Quotes
 
         public IList<Quote> Quote { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public string CurrentSort { get; set; }
+
+        public string NameSort { get; set; }
+        public string DateSort { get; set; }
+
+        public async Task OnGetAsync(string sortOrder)
         {
-            Quote = await _context.Quote.ToListAsync();
+            CurrentSort = sortOrder;
+
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+
+            IQueryable<Quote> quotes = from q in _context.Quote
+                                       select q;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    quotes = quotes.OrderByDescending(q => q.CustomerName);
+                    break;
+                case "Date":
+                    quotes = quotes.OrderBy(q => q.QuoteDate);
+                    break;
+                case "date_desc":
+                    quotes = quotes.OrderByDescending(q => q.QuoteDate);
+                    break;
+                default:
+                    quotes = quotes.OrderBy(q => q.CustomerName);
+                    break;
+            }
+
+            Quote = await quotes.ToListAsync();
         }
     }
 }
