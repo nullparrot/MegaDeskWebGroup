@@ -8,11 +8,11 @@
     <div class="mb-3">
         <a asp-page="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Create New Quote</a>
     </div>
-    <form method="get" class="mb-3">
+    <form method="get">
         <p>
             <label for="SearchString">Search: </label>
-            <input type="text" asp-for="SearchString" id="SearchString" class="form-control d-inline-block w-auto" />
-            <input type="submit" value="Filter" class="btn btn-primary" />
+            <input type="text" asp-for="SearchString" id="SearchString" />
+            <input type="submit" value="Filter" />
         </p>
     </form>
     <div class="card">
@@ -50,7 +50,7 @@
                                 <td>@Html.DisplayFor(modelItem => item.TotalCost, "{0:C}")</td>
                                 <td>@((int)item.RushDays > 0 ? item.QuoteDate.AddDays((int)item.RushDays).ToString("MM/dd/yyyy") : "N/A")</td>
                                 <td>
-                                    <div class="dropdown">
+                                    <div class="dropdown dropdown-left">
                                         <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton-@item.Id" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="bi bi-three-dots"></i>
                                         </button>

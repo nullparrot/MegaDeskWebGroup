@@ -54,10 +54,43 @@ body {
     color: inherit;
 }
 
+/* Dropdown styles supporting data-bs-popper="top" */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    z-index: 1060; /* Above table and card */
+    min-width: 120px; /* Readable width */
+    bottom: 100%; /* Fallback for upward positioning */
+    top: auto; /* Prevent downward default */
+    margin-bottom: 2px; /* Gap above button */
+}
+
+/* Add padding and overflow to card-body */
+.card-body {
+    padding-bottom: 3rem;
+    overflow: visible;
+}
+
+.table tbody tr {
+    position: relative;
+    min-height: 48px;
+    overflow: visible;
+}
+
+.table td {
+    position: relative;
+    overflow: visible;
+    vertical-align: middle;
+}
+
 .table {
     background-color: #FFFFFF; /* White */
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
+    position: relative;
     color: #2D3748; /* Charcoal Gray */
 }
 
@@ -66,6 +99,10 @@ body {
         vertical-align: middle;
         font-weight: 400;
     }
+
+.table-responsive {
+    overflow: visible;
+}
 
 .btn-primary {
     background-color: #5A67D8; /* Indigo */
