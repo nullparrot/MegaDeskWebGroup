@@ -62,7 +62,6 @@ namespace MegaDeskWebGroup.Pages.Quotes
                 RushDays.ThreeDays => (area >= 1000 && area <= 2000) ? 70 : (area < 1000 ? 60 : 80),
                 RushDays.FiveDays => (area >= 1000 && area <= 2000) ? 50 : (area < 1000 ? 40 : 60),
                 RushDays.SevenDays => (area >= 1000 && area <= 2000) ? 35 : (area < 1000 ? 30 : 40),
-                RushDays.FourteenDays => 0,
                 RushDays.NoRush => 0,
                 _ => 0
             };
