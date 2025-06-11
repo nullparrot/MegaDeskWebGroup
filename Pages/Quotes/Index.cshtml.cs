@@ -25,6 +25,8 @@ namespace MegaDeskWebGroup.Pages.Quotes
         public string? NameSort { get; set; }
         public string? DateSort { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string? SearchString { get; set; }
         public async Task OnGetAsync(string sortOrder)
         {
             CurrentSort = sortOrder;
@@ -49,6 +51,13 @@ namespace MegaDeskWebGroup.Pages.Quotes
                 default:
                     quotes = quotes.OrderBy(q => q.CustomerName);
                     break;
+            }
+
+            //search by name
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                quotes = quotes.Where(n => n.CustomerName.Contains(SearchString));
             }
 
             Quote = await quotes.ToListAsync();
