@@ -4,40 +4,32 @@ namespace MegaDeskWebGroup.Models
 {
     public class Quote
     {
-        [ScaffoldColumn(false)]
         public int Id { get; set; }
 
+        [StringLength(60, MinimumLength = 3)]
         [Required(ErrorMessage = "Customer Name is required")]
-        [Display(Name = "Customer Name")]
         public required string CustomerName { get; set; }
 
-        [Required(ErrorMessage = "Quote Date is required")]
+        [DataType(DataType.Date)]
         public DateTime QuoteDate { get; set; }
 
-        [Required(ErrorMessage = "Total Cost is required")]
-        [DataType(DataType.Currency)]
         public decimal TotalCost { get; set; }
 
-        [ScaffoldColumn(false)]
+        [RegularExpression(@"2[4-9]|[3-8][0-9]|9[0-6]", ErrorMessage = "Please enter a number between 24 and 96.")]
         [Required(ErrorMessage = "Width is required")]
-        [Range(24, 96, ErrorMessage = "Width must be between 24 and 96 inches")]
         public int Width { get; set; }
 
-        [ScaffoldColumn(false)]
+        [RegularExpression(@"1[2-9]|[23][0-9]|4[0-8]", ErrorMessage = "Please enter a number between 12 and 48.")]
         [Required(ErrorMessage = "Depth is required")]
-        [Range(12, 48, ErrorMessage = "Depth must be between 12 and 48 inches")]
         public int Depth { get; set; }
 
-        [ScaffoldColumn(false)]
+        [RegularExpression(@"[0-6]", ErrorMessage = "Please enter a number between 0 and 6.")]
         [Required(ErrorMessage = "Drawer Count is required")]
-        [Range(0, 7, ErrorMessage = "Drawer Count must be between 0 and 7")]
         public int DrawerCount { get; set; }
 
-        [ScaffoldColumn(false)]
         [Required(ErrorMessage = "Surface Material is required")]
         public SurfaceMaterial SurfaceMaterial { get; set; }
 
-        [ScaffoldColumn(false)]
         [Required(ErrorMessage = "Rush Option is required")]
         public RushDays RushDays { get; set; }
     }
@@ -53,15 +45,13 @@ namespace MegaDeskWebGroup.Models
 
     public enum RushDays
     {
+        [Display(Name = "No Rush")]
+        NoRush = 0,
         [Display(Name = "3 Days")]
         ThreeDays = 3,
         [Display(Name = "5 Days")]
         FiveDays = 5,
         [Display(Name = "7 Days")]
-        SevenDays = 7,
-        [Display(Name = "14 Days")]
-        FourteenDays = 14,
-        [Display(Name = "No Rush")]
-        NoRush = 0
+        SevenDays = 7
     }
 }
