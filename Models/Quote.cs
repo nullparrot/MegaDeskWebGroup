@@ -23,7 +23,7 @@ namespace MegaDeskWebGroup.Models
         [Required(ErrorMessage = "Depth is required")]
         public int Depth { get; set; }
 
-        [RegularExpression(@"[0-6]", ErrorMessage = "Please enter a number between 0 and 6.")]
+        [RegularExpression(@"[0-7]", ErrorMessage = "Please enter a number between 0 and 7.")]
         [Required(ErrorMessage = "Drawer Count is required")]
         public int DrawerCount { get; set; }
 
