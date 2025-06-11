@@ -21,11 +21,9 @@ namespace MegaDeskWebGroup.Pages.Quotes
         }
 
         public IList<Quote> Quote { get;set; } = default!;
-
-        public string CurrentSort { get; set; }
-
-        public string NameSort { get; set; }
-        public string DateSort { get; set; }
+        public string? CurrentSort { get; set; }
+        public string? NameSort { get; set; }
+        public string? DateSort { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }

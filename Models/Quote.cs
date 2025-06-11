@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace MegaDeskWebGroup.Models
 {
@@ -7,35 +7,31 @@ namespace MegaDeskWebGroup.Models
         public int Id { get; set; }
 
         [StringLength(60, MinimumLength = 3)]
-        [Required]
-        public string CustomerName { get; set; }
+        [Required(ErrorMessage = "Customer Name is required")]
+        public required string CustomerName { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime QuoteDate { get; set; }
+
         public decimal TotalCost { get; set; }
 
-        [RegularExpression(@"2[4-9]|[3-8][0-9]|9[0-6]",
-            ErrorMessage = "Please enter a number between 24 and 96.")]
-        [Required]
+        [RegularExpression(@"2[4-9]|[3-8][0-9]|9[0-6]", ErrorMessage = "Please enter a number between 24 and 96.")]
+        [Required(ErrorMessage = "Width is required")]
         public int Width { get; set; }
 
-        [RegularExpression(@"1[2-9]|[23][0-9]|4[0-8]",
-            ErrorMessage = "Please enter a number between 12 and 48.")]
-        [Required]
+        [RegularExpression(@"1[2-9]|[23][0-9]|4[0-8]", ErrorMessage = "Please enter a number between 12 and 48.")]
+        [Required(ErrorMessage = "Depth is required")]
         public int Depth { get; set; }
 
-        [RegularExpression(@"[0-7]",
-            ErrorMessage = "Please enter a number between 0 and 6.")]
-        [Required]
+        [RegularExpression(@"[0-6]", ErrorMessage = "Please enter a number between 0 and 6.")]
+        [Required(ErrorMessage = "Drawer Count is required")]
         public int DrawerCount { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Surface Material is required")]
         public SurfaceMaterial SurfaceMaterial { get; set; }
 
-        [RegularExpression(@"\b(0|3|5|7)\b",
-            ErrorMessage = "Please enter a 0, 3, 5, or 7.")]
-        [Required]
-        public int RushDays { get; set; }
+        [Required(ErrorMessage = "Rush Option is required")]
+        public RushDays RushDays { get; set; }
     }
 
     public enum SurfaceMaterial
@@ -45,5 +41,17 @@ namespace MegaDeskWebGroup.Models
         Pine,
         Rosewood,
         Veneer
+    }
+
+    public enum RushDays
+    {
+        [Display(Name = "No Rush")]
+        NoRush = 0,
+        [Display(Name = "3 Days")]
+        ThreeDays = 3,
+        [Display(Name = "5 Days")]
+        FiveDays = 5,
+        [Display(Name = "7 Days")]
+        SevenDays = 7
     }
 }

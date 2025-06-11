@@ -12,55 +12,83 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
             <input type="hidden" asp-for="Quote.Id" />
-            <div class="form-group">
-                
-                <label asp-for="Quote.CustomerName" class="control-label"></label>
-                <input asp-for="Quote.CustomerName" class="form-control" />
+            <input type="hidden" asp-for="Quote.QuoteDate" />
+            <div class="form-floating mb-3">
+                <input asp-for="Quote.CustomerName" class="form-control" placeholder="Customer Name" />
+                <label asp-for="Quote.CustomerName">Customer Name</label>
                 <span asp-validation-for="Quote.CustomerName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                
-                <label asp-for="Quote.Width" class="control-label"></label>
-                <input asp-for="Quote.Width" class="form-control" />
+            <div class="form-floating mb-3">
+                <input asp-for="Quote.Width" class="form-control" placeholder="Width" type="number" min="24" max="96" />
+                <label asp-for="Quote.Width">Width (inches)</label>
                 <span asp-validation-for="Quote.Width" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                
-                <label asp-for="Quote.Depth" class="control-label"></label>
-                <input asp-for="Quote.Depth" class="form-control" />
+            <div class="form-floating mb-3">
+                <input asp-for="Quote.Depth" class="form-control" placeholder="Depth" type="number" min="12" max="48" />
+                <label asp-for="Quote.Depth">Depth (inches)</label>
                 <span asp-validation-for="Quote.Depth" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                
-                <label asp-for="Quote.DrawerCount" class="control-label"></label>
-                <input asp-for="Quote.DrawerCount" class="form-control" />
+            <div class="form-floating mb-3">
+                <input asp-for="Quote.DrawerCount" class="form-control" placeholder="Drawer Count" type="number" min="0" max="7" />
+                <label asp-for="Quote.DrawerCount">Drawer Count</label>
                 <span asp-validation-for="Quote.DrawerCount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                
-                <label asp-for="Quote.SurfaceMaterial" class="control-label"></label>
-                <select asp-for="Quote.SurfaceMaterial" class="form-control" asp-items="Html.GetEnumSelectList<MegaDeskWebGroup.Models.SurfaceMaterial>()"></select>
+            <div class="form-floating mb-3">
+                <select asp-for="Quote.SurfaceMaterial" class="form-control" id="surfaceMaterialSelect" asp-items="Html.GetEnumSelectList<MegaDeskWebGroup.Models.SurfaceMaterial>()" onchange="updateMaterialPreview()">
+                    <option value="">- Select a Surface Material -</option>
+                </select>
+                <label asp-for="Quote.SurfaceMaterial">Surface Material</label>
                 <span asp-validation-for="Quote.SurfaceMaterial" class="text-danger"></span>
+                <div id="materialPreview" class="mt-2 border rounded" style="height: 30px; width: 100px;"></div>
             </div>
-            <div class="form-group">
-                
-                <label asp-for="Quote.RushDays" class="control-label"></label>
-                <input asp-for="Quote.RushDays" class="form-control" />
+            <div class="form-floating mb-3">
+                <select asp-for="Quote.RushDays" class="form-control" id="rushDaysSelect" asp-items="Html.GetEnumSelectList<MegaDeskWebGroup.Models.RushDays>()">
+                    <option value="">- Select Rush Option -</option>
+                </select>
+                <label asp-for="Quote.RushDays">Rush Option</label>
                 <span asp-validation-for="Quote.RushDays" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function updateMaterialPreview() {
+            const select = document.getElementById('surfaceMaterialSelect');
+            const preview = document.getElementById('materialPreview');
+            if (!select || !preview) {
+                console.error('SurfaceMaterial select or preview not found');
+                return;
+            }
+            const value = select.value;
+            const text = select.options[select.selectedIndex]?.text || '';
+            console.log('Selected value:', value, 'Text:', text);
+            const colors = {
+                '0': '#8B5A2B', // Oak
+                '1': '#D3D3D3', // Laminate
+                '2': '#DEB887', // Pine
+                '3': '#65000B', // Rosewood
+                '4': '#A0522D'  // Veneer
+            };
+            const color = colors[value] || '#FFFFFF';
+            console.log('Applying color:', color);
+            preview.style.backgroundColor = color;
+            preview.title = value ? `Preview: ${text}` : '';
+            console.log('Preview style:', preview.style.backgroundColor);
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded: Initializing material preview');
+            updateMaterialPreview();
+        });
+    </script>
 }
